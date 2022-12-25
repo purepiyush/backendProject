@@ -15,7 +15,9 @@ app.get("/",(req,res)=>{
 })
 
 app.use("/user",userRouter);
-
+app.get('*',(req,res)=>{
+    res.status(404).json({err : "this route not defined"})
+})
 
 
 mongoose.set('strictQuery', true);
