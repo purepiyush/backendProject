@@ -64,7 +64,7 @@ router.post("/post",authUser,async(req,res)=>{
 router.get("/mypost",authUser,async(req,res)=>{
     try {
         const user = req.user;
-        const posts = await Post.find({postId:user._id})
+        const posts = await Post.find({postId:user._id}).select("post createdAt updatedAt")
         return res.status(200).json(posts)
     } catch (error) {
         res.status(500).json({error : error.message})
@@ -74,7 +74,7 @@ router.get("/mypost",authUser,async(req,res)=>{
 router.get("/allpost",authUser,async(req,res)=>{
     try {
         const user = req.user;
-        const posts = await Post.find({})
+        const posts = await Post.find({}).select("post createdAt updatedAt")
         return res.status(200).json(posts)
     } catch (error) {
         res.status(500).json({error : error.message})
@@ -82,7 +82,7 @@ router.get("/allpost",authUser,async(req,res)=>{
 })
 
 router.get("/",async(req,res)=>{
-    const posts = await Post.find({})
+    const posts = await Post.find({}).select("post createdAt updatedAt")  //for selecting few items from object
     return res.status(200).json(posts)
 })
 
